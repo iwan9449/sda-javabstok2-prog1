@@ -22,6 +22,66 @@ public class Heap {
         tree[currentIndex] = value;
     }
 
+//    public int remove() {
+//        if (lastIndex == 0) {
+//            throw new IndexOutOfBoundsException();
+//        }
+//        lastIndex--;
+//        int lastValue = tree[lastIndex];
+//        int currentIndex = 0;
+//        int elementToRemove = tree[currentIndex];
+//        int biggerChildIndex = getBiggerChildIndex(currentIndex);
+//        while (biggerChildIndex < lastIndex && tree[biggerChildIndex] > lastValue) {
+//            tree[currentIndex] = tree[biggerChildIndex];
+//            currentIndex = biggerChildIndex;
+//            biggerChildIndex = getBiggerChildIndex(biggerChildIndex);
+//        }
+//        tree[currentIndex] = lastValue;
+//        return elementToRemove;
+//    }
+//
+//    private int getBiggerChildIndex(int index) {
+//        if (hasRightChild(index)) {
+//            return getLeftChild(index) > getRightChild(index) ? getLeftChildIndex(index) : getRightChildIndex(index);
+//        } else if (hasLeftChild(index)) {
+//            return getLeftChildIndex(index);
+//        } else {
+//            return lastIndex + 1;
+//        }
+//    }
+
+
+
+    public int remove() {
+        if (!hasNodes()) {
+            throw new IndexOutOfBoundsException();
+        }
+        int elementToRemove = tree[0];
+        int currentIndex = 0;
+        int greaterChildIndex = getGreaterChildIndex(0);
+        int lastValue = tree[--lastIndex];
+
+        while (greaterChildIndex < lastIndex && tree[greaterChildIndex] > lastValue) {
+            tree[currentIndex] = tree[greaterChildIndex];
+            currentIndex = greaterChildIndex;
+            greaterChildIndex = getGreaterChildIndex(currentIndex);
+        }
+        tree[currentIndex] = lastValue;
+
+        return elementToRemove;
+    }
+
+    private int getGreaterChildIndex(int index) {
+        if (hasRightChild(index)) {
+            return getLeftChild(index) > getRightChild(index) ? getLeftChildIndex(index) : getRightChildIndex(index);
+        } else if (hasLeftChild(index)) {
+            return getLeftChildIndex(index);
+        } else {
+            return lastIndex + 1;
+        }
+    }
+
+
     int getValue(int index) {
         return tree[index];
     }
