@@ -5,13 +5,11 @@ public class Stopwatch {
     private static long stop;
 
     public static void start() {
-        System.out.println("Stopwatch: start");
         start = System.currentTimeMillis();
     }
 
     public static void stop() {
         stop = System.currentTimeMillis();
-        System.out.println("Stopwatch: stop");
         System.out.println(getFormattedTime());
     }
 
